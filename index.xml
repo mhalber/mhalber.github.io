@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maciej @ Princeton on msh</title>
+    <link>http://www.cs.princeton.edu/~mhalber/index.xml</link>
+    <description>Recent content in Maciej @ Princeton on msh</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Feb 2017 20:58:09 +0800</lastBuildDate>
+    <atom:link href="http://www.cs.princeton.edu/~mhalber/index.xml" rel="self" type="application/rss+xml" />
+    
+  </channel>
+</rss>

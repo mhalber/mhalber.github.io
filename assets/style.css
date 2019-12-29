@@ -1,0 +1,242 @@
+/*Page wide settings*/
+
+html
+{
+  background-color: #FFFEFD;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  margin-top:0px;
+}
+
+body
+{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:64px;
+  width: 800px;
+  margin-bottom:64px;
+}
+
+
+.header
+{
+  background-color: #FFFEFD;
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:64px;
+  line-height: 32px;
+  border-bottom: 1px dashed gray;
+}
+
+.header-content
+{
+  margin-left: auto;
+  margin-right: auto;
+  width:800px;
+}
+
+h1.page_title
+{
+  float:left;
+  font-family: 'Martel', serif;
+}
+
+h1
+{
+  font-family: 'Martel', serif;
+}
+
+h2
+{
+  margin-top: 35px;
+  font-family: 'Martel', serif;
+}
+
+h3
+{
+  margin-top: 35px;
+  font-family: 'Martel', serif;
+}
+
+.fa
+{
+  color:black;
+}
+
+.fa.top_nav
+{
+  float:right;
+  text-align: right;
+  margin-top:16px;
+  margin-left:32px;
+}
+
+p
+{
+  text-align: justify;
+}
+
+a
+{
+  color: #317EFF;
+}
+
+a:hover
+{
+  color: #099BF8;
+}
+
+/*Post summary elements*/
+
+ul.posts_summary
+{
+  list-style-type: none;
+  padding:0px;
+}
+
+li.posts_summary
+{
+  padding-top:10px;
+  padding-bottom:10px;
+  border-bottom: 1px dashed lightgray;
+}
+
+a.posts_summary
+{
+  font-size:24px;
+  font-weight:bold;
+  text-decoration:none;
+  color:black;
+}
+
+a.read_more
+{
+  text-align:right;
+  float:right;
+  text-decoration:none;
+}
+
+#time
+{
+  font-size:11px;
+  text-align: right;
+  color:gray;
+  float:right;
+  line-height:48px;
+}
+
+
+/*Tables*/
+
+table
+{
+  font-size: 14px;
+	border-collapse:collapse;
+	padding:0;
+  margin: auto;
+}
+
+table tr
+{
+	border-top:1px solid #ccc;
+	background-color:#f8f8f8;
+	margin:0;
+	padding:0;
+}
+
+table tr th
+{
+  border:1px solid #ccc;
+	border-bottom:2px solid #aaa;
+  text-align:left;
+	margin:0;
+	padding:6px 13px;
+}
+
+table tr:nth-child(2n)
+{
+	background-color:#f4f4f4;
+}
+
+table tr th[align="center"], table tr td[align="center"] {
+	text-align:center;
+}
+
+table tr td
+{
+	border:1px solid #ccc;
+	text-align:left;
+	margin:0;
+	padding:6px 13px;
+}
+
+/* Publication table */
+
+
+table.publ
+{
+  width: 100%;
+  border:0px solid #ccc;
+}
+
+tr.publ
+{
+  padding-top:100px;
+  padding-bottom:10px;
+  border: 1px solid #fff;
+  background-color:#fff;
+}
+
+tr.publ:nth-child(2n)
+{
+  background-color:#fff;
+  border: 1px solid #fff;
+}
+
+td.publ
+{
+  font-family: 'Martel', serif;
+  padding: 5px; 
+  padding-left: 20px;
+  border:0px solid #fff;
+}
+
+td.publ_image
+{
+  text-align:center;
+  border:0px solid #fff;
+}
+
+img.publ_miniature
+{
+  height: 128px;
+}
+
+/*NAvigation*/
+table.post_nav_bar
+{
+  border-top: 1px dashed lightgray;
+  width:100%;
+}
+
+td.post_nav_prev
+{
+  text-align: left;
+  border:0px solid #fff;
+  width:33%;
+}
+td.post_nav_home
+{
+  text-align: center;
+  border:0px solid #fff;
+  width:33%;
+}
+td.post_nav_next
+{
+  text-align: right;
+  border:0px solid #fff;
+  width:33%;
+}
