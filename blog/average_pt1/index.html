@@ -47,7 +47,7 @@
 \end{eqnarray}
 $$
 where $a_i$ is either a scalar value or a vector, that is  $a_i \in \mathbb{R}^n$.</p>
-<p>An average, or a mean, is a nice little property that tells us something (albeit not much, see <a href="%22https://en.wikipedia.org/wiki/Anscombe's_quartet%22">Anascome&rsquo;s quartet</a>) about our data. However, one might wonder why is the average defined as in equation $\ref{eq:avg}$? We could punt on it and simply state that the above formula is the definition of the mean, and that&rsquo;s the end of discussion. Hopefully, you agree that it is not a very satisfying answer. In this post we dig a little deeper and derive the formula for the average.</p>
+<p>An average, or a mean, is a nice little property that tells us something (albeit not much, see <a href="https://en.wikipedia.org/wiki/Anscombe's_quartet">Anascombe&rsquo;s quartet</a>) about our data. However, one might wonder why is the average defined as in equation $\ref{eq:avg}$? We could punt on it and simply state that the above formula is the definition of the mean, and that&rsquo;s the end of discussion. Hopefully, you agree that it is not a very satisfying answer. In this post we dig a little deeper and derive the formula for the average.</p>
 <p>When we think about an average, it is useful to consider it in terms of the properties that the average of some dataset posesses. Let us focus for a moment on two-dimensional case, considering sets of points. Let&rsquo;s assume we have a set $\mathcal{A}={a_1, &hellip;, a_n}$ of $n$ points, where each point is represented by a tuple $a_i = (x,y)$. An average $\bar{a}$ of  $\mathcal{A}$ is a point that minimizes the distance between all elements of $\mathcal{A}$:</p>
 <p>$$
 \DeclareMathOperator*{\argmin}{arg\,min}
