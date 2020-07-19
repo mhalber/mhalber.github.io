@@ -2,40 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on msh</title>
-    <link>http://www.cs.princeton.edu/~mhalber/blog/</link>
+    <link>https://mhalber.github.io/blog/</link>
     <description>Recent content in Blogs on msh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 18 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://www.cs.princeton.edu/~mhalber/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mhalber.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>On the average</title>
-      <link>http://www.cs.princeton.edu/~mhalber/blog/average_pt1/</link>
+      <link>https://mhalber.github.io/blog/average_pt1/</link>
       <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://www.cs.princeton.edu/~mhalber/blog/average_pt1/</guid>
+      <guid>https://mhalber.github.io/blog/average_pt1/</guid>
       <description>Most people are likely familiar with the concept of an average, as we often encouter it in our everyday lives. Questions like: how much money on average do I spend on groceries each week, how much time on average do I spend in front of computer per day, etc., are very common. The average is very simple to calculate - we take some quantities, add them together, and divide the results by the number of the quantities.</description>
     </item>
     
     <item>
-      <title>On the average pt.2</title>
-      <link>http://www.cs.princeton.edu/~mhalber/blog/average_pt2/</link>
-      <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
-      
-      <guid>http://www.cs.princeton.edu/~mhalber/blog/average_pt2/</guid>
-      <description>In the previous post we looked at the definition of an average and we showed that the mean is a quantity that minimizes the sum of squared distances. Calculating the mean is extremely easy, as we have a closed form formula to do so.
-However, there is no silver bullet. The mean suffers from its sensitivity to outliers. Consider the dataset below - we have data that is mostly concentrated around a single point, with few outliers concentrated at another position.</description>
-    </item>
-    
-    <item>
       <title>OpenGL Gradient Background</title>
-      <link>http://www.cs.princeton.edu/~mhalber/blog/ogl_gradient/</link>
+      <link>https://mhalber.github.io/blog/ogl_gradient/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://www.cs.princeton.edu/~mhalber/blog/ogl_gradient/</guid>
+      <guid>https://mhalber.github.io/blog/ogl_gradient/</guid>
       <description>First of all, hello to my new blog :) I&amp;rsquo;ve made a bunch of blog-writing attempts in the past, with a little-to-no success. So let&amp;rsquo;s hope this time it works out!
 In this short article, I&amp;rsquo;ll describe a neat little function that allows you to have a gradient backgrounds in your OpenGL applications, like the snazzy 3D apps (Blender pictured below) do these days.
 Our goal is to create a single function, working very much like the glClearColor, but rather than a single color it should be to accept arguments for colors at the top and bottom of the window.</description>
