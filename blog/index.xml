@@ -6,13 +6,23 @@
     <description>Recent content in Blogs on msh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mhalber.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>On the average</title>
+      <title>On the average pt.2 - Robust average</title>
+      <link>https://mhalber.github.io/blog/average_pt2/</link>
+      <pubDate>Mon, 20 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mhalber.github.io/blog/average_pt2/</guid>
+      <description>In the previous post we derived the formula for the average and we showed that the average is a quantity that minimizes the sum of squared distances. Calculating the mean is extremely easy, as we have a closed form formula to do so.
+However, as you might expect, there is no silver bullet. While the arithmetic mean has many useful properties, one if its biggest drawbacks is its sensitivity to outliers.</description>
+    </item>
+    
+    <item>
+      <title>On the average pt.1 - Definition</title>
       <link>https://mhalber.github.io/blog/average_pt1/</link>
       <pubDate>Sat, 18 Jul 2020 00:00:00 +0000</pubDate>
       

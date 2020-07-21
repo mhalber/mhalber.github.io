@@ -4,10 +4,10 @@
   <head>
     <meta charset="utf-8">
     <title>
-       On the average pt.2
+       On the average pt.2 - Robust average
       
     </title>
-    <link rel="stylesheet" href="http://www.cs.princeton.edu/~mhalber//assets/style.css">
+    <link rel="stylesheet" href="https://mhalber.github.io//assets/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
     <script src="https://use.fontawesome.com/df431d87ca.js"></script>
@@ -34,64 +34,68 @@
         </h1>
       <a href="https://twitter.com/maciejhalber"><i class="fa top_nav fa-twitter fa-lg" aria-hidden="true"></i></a>
       <a href="https://github.com/mhalber"><i class="fa top_nav fa-github fa-lg" aria-hidden="true"></i></a>
-      <a href="http://www.cs.princeton.edu/~mhalber//blog/"><i class="fa top_nav fa-pencil fa-lg" aria.z/z-hidden="true"></i></a>
-      <a href="http://www.cs.princeton.edu/~mhalber/"><i class="fa top_nav fa-book fa-lg" aria-hidden="true"></i></a>
+      <a href="https://mhalber.github.io//blog/"><i class="fa top_nav fa-pencil fa-lg" aria.z/z-hidden="true"></i></a>
+      <a href="https://mhalber.github.io/"><i class="fa top_nav fa-book fa-lg" aria-hidden="true"></i></a>
     </div></div>
 
-<h1>On the average pt.2</h1>
-<p>In the previous post we looked at the definition of an average and we showed that the mean is a quantity that minimizes the sum of squared distances. Calculating the mean is extremely easy, as we have a closed form formula to do so.</p>
-<p>However, there is no silver bullet. The mean suffers from its sensitivity to outliers. Consider the dataset below - 
-we have data that is mostly concentrated around a single point, with few outliers concentrated at another position.</p>
-<p><img src="empirical_mean.png#center" alt=""></p>
-<p>Ideally, we would like our estimate (calculated mean in the figure above) to be close to the true mean, and somehow ignore the outlier points. As you might imagine, outlier data points are common when dealing with real-world data. As such, people have developed a whole myriad of techniques to deal with such situations. One of these techniques involves the use of &ldquo;robust&rdquo; error function, i.e. functions that are somewhat robust to the outliers.</p>
-<p>To understand the intuition behind the robust functions, let us start by looking at the sum of squares loss function we worked through last time (for clarity, and without the loss of generality, we can omit the $\frac{1}{2}$ factor):</p>
+<h1>On the average pt.2 - Robust average</h1>
+<p>In the <a href="https://mhalber.github.io/blog/average_pt1/">previous post</a> we derived the formula for the average and we showed that the average is a quantity that minimizes the sum of squared distances. Calculating the mean is extremely easy, as we have a closed form formula to do so.</p>
+<p>However, as you might expect, there is no silver bullet. While the arithmetic mean has many useful properties, one if its biggest drawbacks is its sensitivity to outliers. Consider the dataset below - we have data consisting of a number of points that is mostly concentrated around a single position, with few outliers concentrated at another location:</p>
+<p><img src="calculated_mean.png#center" alt=""></p>
+<p>Ideally, we would like our estimate (calculated mean in the figure above) to be close to the true mean. To achieve this our estimation procedure should somehow be able to ignore the outlier points. Luckily, since outlier data points are common when dealing with real-world data, people have developed a whole myriad of techniques to deal with such situations. One of these techniques involves the use of &ldquo;robust&rdquo; error function, that is error functions that are somewhat robust to the outliers.</p>
+<p>To understand the intuition behind the robust error (or loss) functions, let us start by looking at the sum of squares function we analyzed in the <a href="https://mhalber.github.io/blog/average_pt1/">part 1</a> (for clarity, and without the loss of generality, we can omit the $\frac{1}{2}$ factor):</p>
 <p>$$
 \DeclareMathOperator*{\argmin}{arg\,min}
-\argmin_{\bar{a}}\mathcal{L}(\bar{a}, \mathcal{A}) = \argmin_{\bar{a}}\sum_i^n||\bar{a} - a_i||_2^2 \nonumber
+\argmin_{\bar{a}}\mathcal{L}(\bar{a}, \mathcal{A}) = \argmin_{\bar{a}}\sum_i^n\|\bar{a} - a_i\|_2^2 \nonumber
 $$</p>
-<p>Let&rsquo;s rewrite the above equation with $\epsilon_i = ||\bar{a} - a_i||_2$:</p>
+<p>Let&rsquo;s rewrite the above equation with $\epsilon_i = \|\bar{a} - a_i\|_2$:</p>
 <p>$$
 \DeclareMathOperator*{\argmin}{arg\,min}
 \argmin_{\bar{a}}\mathcal{L}(\bar{a}, \mathcal{A}) = \argmin_{\bar{a}}\sum_i^n\epsilon_i^2 \nonumber
 $$</p>
-<p>We refer to the $\epsilon_i$ as the residual. By writing our loss function in the above form, it hopefully becomes clear that the squaring the residuals was just a choice that we made, as the function can also be written as:</p>
+<p>We refer to the $\epsilon_i$ as the residual. By writing our loss function in the above form, it hopefully becomes clear that the squaring of the residual was just a choice that we made, as the function can be equivalently written as:</p>
 <p>$$
 \DeclareMathOperator*{\argmin}{arg\,min}
 \argmin_{\bar{a}}\mathcal{L}(\bar{a}, \mathcal{A}) = \argmin_{\bar{a}}\sum_i^n\rho(\epsilon_i) \nonumber \text{,}
 $$
-with $\rho(x) = x^2$. Question then arises, what happens if we replace the square function with some other function? An example of a robust function is a Pseudo-Huber loss, written as $\rho_{huber}(x, \sigma) = \sigma^2\left(\sqrt{1 + (\frac{x}{\sigma})^2} - 1\right)$. The formula might look a little intimidating, however the plot of Pseudo-Huber function reveals that it is simply a function that approximates quadratic ($x^2$) near the origin and an absolute value linear function everywhere else. The parameter $\sigma$ controls how quickly does this function grows (i.e. slope of the linear part).</p>
+with $\rho(x) = x^2$. Immediately, a question emerges: what happens if we replace the square function with some other function? An example of a robust error function is the Pseudo-Huber loss, defined as $\rho_{huber}(x, \sigma) = \sigma^2\left(\sqrt{1 + (\frac{x}{\sigma})^2} - 1\right)$. The formula might look a little intimidating, however the plot of Pseudo-Huber function reveals that it is simply a function that approximates quadratic ($x^2$) near the origin and underestimates absolute value linear function everywhere else. The parameter $\sigma$ controls how quickly does this function grows (i.e. slope of the linear part).</p>
 <p><img src="functions.png#center" alt=""></p>
-<p>To find the minimum of that loss, let us follow the usual recipie of taking the derivative of a function with respect to the parameters and setting it equal to zero:</p>
+<p>To find the minimum of the Pseudo-Huber based loss function, let us follow the usual recipe of taking the derivative of a function with respect to the parameters and setting it equal to zero:</p>
 <p>$$
 \begin{align}
 \frac{\partial L(\bar{a}, \mathcal{A})}{\partial \bar{x}} &amp;= 0 \nonumber \\\<br>
 \frac{\partial \sum_i^n\rho_{huber}(\epsilon_i, \sigma)}{\partial \bar{x}} &amp;= 0 \nonumber \\\<br>
-\sum_i^n \frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \bar{x}} &amp;= 0 \nonumber \\\<br>
-\sum_i^n \frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i} \frac{\partial \epsilon_i}{\partial \bar{x}} &amp;= 0 \nonumber
+\sum_i^n \frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \bar{x}} &amp;= 0 &amp;\text{ // Sum Rule} \nonumber  \\\<br>
+\sum_i^n \frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i} \frac{\partial \epsilon_i}{\partial \bar{x}} &amp;= 0 &amp;\text{ // Chain Rule} \nonumber
 \end{align}
 $$</p>
-<p>As we have shown in the part 1:
+<p>As in part 1 we have split out derivative into two terms. Previously, we have shown in that:
 $$
 \frac{\partial \epsilon_i}{\partial \bar{x}} = \frac{\bar{x}-x_i}{\epsilon_i}
 $$</p>
-<p>What is left to do is to calculate the $\frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i}$:</p>
+<p>What is then left to do is to calculate the $\frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i}$:</p>
 <p>$$
 \begin{align*}
 \frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i} &amp;= \frac{ \partial\left(\sigma^2\left(\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2} - 1\right)\right)}{\partial \epsilon_i} \\\<br>
-&amp;= \frac{ \partial\left(\sigma^2\left(\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}\right)\right)}{\partial \epsilon_i} \\\<br>
+&amp;= \frac{ \partial\left(\sigma^2\left(\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}\right)\right)}{\partial \epsilon_i} &amp;\text{ // Sum rule, }\sigma^2\text{ does not depend on }\bar{x}\\\<br>
 &amp;= \sigma^2\frac{ \partial\left(\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}\right)}{\partial \epsilon_i} \\\<br>
-&amp;= \sigma^2\frac{ \partial\sqrt{t}}{\partial t}\frac{\partial t}{\partial \epsilon_i} \\\<br>
-&amp;= \frac{1}{2}\sigma^2t^{-\frac{1}{2}}\frac{\partial (1 + (\frac{\epsilon_i}{\sigma})^2)}{\partial \epsilon_i} \\\<br>
-&amp;= \frac{1}{2}\sigma^2t^{-\frac{1}{2}}\frac{\partial (\frac{\epsilon_i}{\sigma})^2}{\partial \epsilon_i} \\\<br>
+&amp;= \sigma^2\frac{ \partial\sqrt{t}}{\partial t}\frac{\partial t}{\partial \epsilon_i} &amp;\text{ // }t = 1 + \left(\frac{\epsilon_i}{\sigma}\right)^2 \\\<br>
+&amp;= \frac{1}{2}\sigma^2t^{-\frac{1}{2}}\frac{\partial (1 + (\frac{\epsilon_i}{\sigma})^2)}{\partial \epsilon_i} &amp;\text{ // Power Rule}\\\<br>
+&amp;= \frac{1}{2}\sigma^2t^{-\frac{1}{2}}\frac{\partial (\frac{\epsilon_i}{\sigma})^2}{\partial \epsilon_i} &amp;\text{ // Sum Rule, } 1\text{ does not depend on }\epsilon_i\\\<br>
 &amp;= \frac{1}{2}\sigma^2t^{-\frac{1}{2}}\frac{2\epsilon_i}{\sigma^2} \\\<br>
 &amp;= \frac{\epsilon_i}{\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}
 \end{align*}
 $$</p>
 <p>Putting the two together back into the derivative of the loss function:</p>
 <p>$$
-\frac{\partial L(\bar{a}, \mathcal{A})}{\partial \bar{x}} = \sum_i^n\frac{\epsilon_i}{\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}\frac{\bar{x}-x_i}{\epsilon_i} = \sum_i^n\frac{1}{\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}(\bar{x}-x_i) = 0
+\begin{align*}
+\frac{\partial L(\bar{a}, \mathcal{A})}{\partial \bar{x}} &amp;= \sum_i^n \frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i} \frac{\partial \epsilon_i}{\partial \bar{x}} \\\ 
+&amp;= \sum_i^n\frac{\partial \rho_{huber}(\epsilon_i, \sigma)}{\partial \epsilon_i}\frac{1}{\epsilon_i}\left(\bar{x}-x_i\right) \\\<br>
+&amp;= \sum_i^n\frac{\epsilon_i}{\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}\frac{1}{\epsilon_i}\left(\bar{x}-x_i\right) \\\<br>
+&amp;= \sum_i^n\frac{1}{\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}(\bar{x}-x_i) = 0
+\end{align*}
 $$</p>
-<p>Sadly, unlike when $\rho(x) = x^2$, the above formula still contains $\epsilon_i$. As such we can no longer isolate the value for $\bar{a}$ in a closed form. Instead, to find the robust estimate of the mean, we need to use an iterative approach. In this post we will use a variant of <a href="https://en.wikipedia.org/wiki/Iteratively_reweighted_least_squares">&ldquo;Iteratively Reweighted Least Squares&rdquo; (IRLS)</a> technique. Let us write $w_i = \sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}$, and let us further assume for a moment that the $\epsilon_i$ is not a function of $\bar{x}$. This means that we can keep the term $w_i$ fixed. This allows us to write the formula for the variable we are interested in:</p>
+<p>Sadly, unlike when $\rho(x) = x^2$, the above formula still contains $\epsilon_i$. As such we can no longer isolate the value for $\bar{x}$ in a closed form. Instead, to find the robust estimate of the mean, we need to use an iterative approach. In this post we will use a variant of <a href="https://en.wikipedia.org/wiki/Iteratively_reweighted_least_squares">&ldquo;Iteratively Reweighted Least Squares&rdquo; (IRLS)</a> technique. Let us write $w_i = 1/\left({\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}\right)$, and let us further assume for a moment that the $\epsilon_i$ is not a function of $\bar{x}$. This means that we can keep the term $w_i$ fixed, which allows us to write the formula for the variable we are interested in:</p>
 <p>$$
 \begin{align}
 \sum_i^nw_i(\bar{x}-x_i) &amp;= 0 \nonumber \\\<br>
@@ -100,27 +104,43 @@ $$</p>
 \bar{x} &amp;= \frac{\sum_i^nw_ix_i}{\sum_i^nw_i}
 \end{align}
 $$</p>
-<p>As you possibly recognize, this is a formula for the weighted average! These weights will allow us to discount the outliers that have been &ldquo;skewing&rdquo; the average estimate. Obviously initially we do not know what are the weights, but we also have a formula for those - $w_i = \sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}$! We can thus design an algorithm to compute both the weights and the estimate iteratively:</p>
+<p>As you likely recognize, this is the formula for the weighted average! The weights need now to be chosen to discount the outliers that have been &ldquo;skewing&rdquo; the average estimate. Obviously initially we do not know what are the weights, but we also have a formula for those - $w_i = 1/\left({\sqrt{1 + (\frac{\epsilon_i}{\sigma})^2}}\right)$! With this we can design an algorithm to compute both the weights and the estimate of the mean iteratively:</p>
 <p>$$
 \begin{align*}
 &amp; \text{set all weights }w_i\text{ to }1 \\\<br>
 &amp; \textbf{Repeat }\text{until convergence:} \\\<br>
 &amp; \text{&mdash; calculate }x^* = \frac{\sum_i^nw_ix_i}{\sum_i^nw_i} \\\ 
-&amp; \text{&mdash; calculate residuals } \epsilon_i = ||x^* - x_i||_2 \\\<br>
+&amp; \text{&mdash; calculate residuals } \epsilon_i = \|x^* - x_i\|_2 \\\<br>
 &amp; \text{&mdash; calculate weights } w_i = \frac{1}{\epsilon_i}\frac{\partial \rho(\epsilon_i)}{\partial \epsilon_i} 
 \end{align*}
 $$</p>
-<p>Note that a single iteration of the above procedure will simply give us a regular mean, i.e. $x^* = \bar{x}$.
-However, as we run the algorithm multiple times, the resulting mean estimate becomes closer to the true mean:
-<img src="robust_mean.png#center" alt=""></p>
-<p>Additionally, the above recipie is readily adjusted to support any robust function, like Tukey&rsquo;s weights, Geman-McClure, etc. A good overview of different loss functions can be found in a paper by Black and Rangarajan<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, pages 41-48.</p>
-<p>TODO: Describe why does it work, how did people come up with these functions?</p>
+<p>In the above recipe we write the general form of the $w_i$ for the IRLS framework, so that it can be adjusted to support any robust function, like Tukey&rsquo;s weights, Geman-McClure, etc. A good overview of different loss functions can be found in a paper by Black and Rangarajan<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, pages 41-48. Note that a single iteration of the above procedure will simply give us a regular mean, i.e. $x^* = \bar{x}$. However, as we run the algorithm multiple times, the resulting mean estimate is much closer to the true mean:</p>
+<!-- ![](robust_mean.png#center) -->
+<p><img src='robust_mean_000.png#center' id="image"></img></p>
+<div style="width:40%; margin: 0 auto; text-align:center;">
+<input style="width:100%" type="range" id="iter_count" name="iter_count" min="0" max="9" value="0">
+</div>
+<script>
+var slider = document.getElementById("iter_count");
+var image = document.getElementById("image");
+image.src = 'robust_mean_000.png#center';
+slider.oninput = function() {
+  image.src = 'robust_mean_00' + this.value + '.png#center';
+}
+</script> 
+<p>Before we end, it is important to underline why these function lead to discounting of the outliers. Hopefully this also clarifies how the robust functions were designed. If we consider our optimization procedure, the weights are defined as:
+$$
+w_i = \frac{1}{\epsilon_i}\frac{\partial \rho(\epsilon_i)}{\partial \epsilon_i}
+$$
+This means that the weights are proportional to the derivative of a function applied to our residuals. If we plot the derivative of the square function and Pseudo-Huber loss, it is clear to see that square function will result in high contributions from large errors, as the derivative of the square is a linear function. Conversely, with Pseudo-Huber loss we can see that large errors have a constant contribution, no matter how large the error gets.</p>
+<p><img src="derivatives.png#center" alt=""></p>
 <p>To finish this post off, note that all the techniques that are shown here generalize to robust linear regression, where the residual takes the form of:
 $$
 \epsilon_i = y_i - f(x_i),
 $$
-with linear function $f$. I should most likely write down the maths for this derivation as well, but the general reasoning is very similar.</p>
-<p>I also need to point out that all of the information in this post is well known in statistics. If you wish to find out more, I&rsquo;d recommend reading up on M-Estimators in statistics, IRLS in general. Also there is under-appreciated and somewhat now-forgotten piece of work by Michael Black and Rangarajan. Lastly, more recently Jon Barron has published a wonderful paper<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> that looks at generalization of the energy functions we discuss here.</p>
+with linear function $f$. I should most likely write down the derivation for this problem as well, but the reasoning is very similar.</p>
+<p>I also need to point out that all of the information in this post is well known in statistics. If you wish to find out more, I&rsquo;d recommend reading up on M-Estimators in statistics, IRLS in general. Also there is under-appreciated and somewhat now-forgotten piece of work by Michael Black and Rangarajan. Lastly, more recently Jon Barron has published a wonderful paper<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> that introduced a general robust loss function - definitely give it a read!</p>
+<p>Comments, questions? Message me on <a href="https://twitter.com/maciejhalber">twitter</a></p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -135,13 +155,11 @@ with linear function $f$. I should most likely write down the maths for this der
 
 </br>
 
-
-
 <table class="post_nav_bar">
   <tr class="post_nav_row">
     <td class="post_nav_prev"> 
        
-        <a href=http://www.cs.princeton.edu/~mhalber/blog/ogl_gradient/>
+        <a href=https://mhalber.github.io/blog/average_pt1/>
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-angle-left fa-stack-1x fa-inverse"></i>
@@ -150,7 +168,7 @@ with linear function $f$. I should most likely write down the maths for this der
        
     </td>
     <td class="post_nav_home"> 
-      <a href="http://www.cs.princeton.edu/~mhalber//blog/">
+      <a href="https://mhalber.github.io//blog/">
         <span class="fa-stack fa-lg">
           <i class="fa fa-circle fa-stack-2x"></i>
           <i class="fa fa-home fa-stack-1x fa-inverse"></i>
@@ -158,13 +176,6 @@ with linear function $f$. I should most likely write down the maths for this der
       </a> 
     </td>
     <td class="post_nav_next"> 
-       
-        <a href=http://www.cs.princeton.edu/~mhalber/blog/average_pt1/>
-          <span class="fa-stack fa-lg">
-            <i class="fa fa-circle fa-stack-2x"></i>
-            <i class="fa fa-angle-right fa-stack-1x fa-inverse"></i>
-          </span>
-        </a> 
        
     </td>
   </tr>
