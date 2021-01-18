@@ -41,5 +41,15 @@ In this short article, I&amp;rsquo;ll describe a neat little function that allow
 Our goal is to create a single function, working very much like the glClearColor, but rather than a single color it should be to accept arguments for colors at the top and bottom of the window.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://mhalber.github.io/blog/d3d11_notes/d3d11_notes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mhalber.github.io/blog/d3d11_notes/d3d11_notes/</guid>
+      <description>D3D11 in C99 It is important that the idea behind the D3D11 are those rasterizer stages. This means that there are function calls with decorators like RS or IAS, which mean RasterizerStage, Input Assemby stage etc.
+Windowing Message Pipes Swap Chains Rendering Compiling a shader Get a blob from D3DComplie if it succeeded, peel of the ptr and size of binary blob( GetBufferPointer, GetBufferSize) then call ID3D11Device_CreateVertexShader on the binary blobs.</description>
+    </item>
+    
   </channel>
 </rss>

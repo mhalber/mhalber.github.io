@@ -5,8 +5,7 @@ html
   background-color: #FFFEFD;
   color: #333;
   font-family: 'Lato', sans-serif;
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
   margin-top:0px;
 }
 
@@ -15,7 +14,7 @@ body
   margin-left: auto;
   margin-right: auto;
   margin-top:64px;
-  width: 800px;
+  width: 720px;
   margin-bottom:64px;
 }
 
@@ -28,14 +27,14 @@ body
   width:100%;
   height:64px;
   line-height: 32px;
-  border-bottom:1px solid #DDD;
+  border-bottom: 0px solid #DDD;
 }
 
 .header-content
 {
   margin-left: auto;
   margin-right: auto;
-  width:800px;
+  width:720px;
 }
 
 h1.page_title
@@ -125,9 +124,9 @@ ul.posts_summary
 
 li.posts_summary
 {
-  padding-top:10px;
-  padding-bottom:10px;
-  border-bottom:1px solid #DDD;
+  padding-top:5px;
+  padding-bottom:5px;
+  border-bottom:0px solid #DDD;
 }
 
 a.posts_summary

@@ -27,16 +27,18 @@
   
   <body>
 
-    ​<div class="header"><div class="header-content">  
-      <h1 class="page_title">
-         Maciej's notes
-        
-        </h1>
-      <a href="https://twitter.com/maciejhalber"><i class="fa top_nav fa-twitter fa-lg" aria-hidden="true"></i></a>
-      <a href="https://github.com/mhalber"><i class="fa top_nav fa-github fa-lg" aria-hidden="true"></i></a>
-      <a href="https://mhalber.github.io//blog/"><i class="fa top_nav fa-pencil fa-lg" aria.z/z-hidden="true"></i></a>
-      <a href="https://mhalber.github.io/"><i class="fa top_nav fa-book fa-lg" aria-hidden="true"></i></a>
-    </div></div>
+    ​<div class="header">
+      <div class="header-content">  
+        <h1 class="page_title">
+          Maciej's Notes
+          
+          </h1>
+        <a href="https://twitter.com/maciejhalber"><i class="fa top_nav fa-twitter fa-lg" aria-hidden="true"></i></a>
+        <a href="https://github.com/mhalber"><i class="fa top_nav fa-github fa-lg" aria-hidden="true"></i></a>
+        <a href="https://mhalber.github.io//blog/"><i class="fa top_nav fa-pencil fa-lg" aria.z/z-hidden="true"></i></a>
+        <a href="https://mhalber.github.io/"><i class="fa top_nav fa-book fa-lg" aria-hidden="true"></i></a>
+      </div>
+    </div>
 
 <h1>OpenGL Gradient Background</h1>
 <p>First of all, hello to my new blog :) I&rsquo;ve made a bunch of blog-writing attempts
@@ -59,7 +61,7 @@ calls happen.</p>
 terms like <a href="https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Array_Object">VAO</a>, 
 <a href="https://www.khronos.org/opengl/wiki/Vertex_Specification#Vertex_Buffer_Object">VBO</a>, etc. 
 There is a plenty of great resources on learning basic OpenGL online. If you are 
-a complete OpenGL begginer, I&rsquo;d suggest reading through <a href="https://learnopengl.com">learnopengl.com</a> tutorials.</p>
+a complete OpenGL beginner, I&rsquo;d suggest reading through <a href="https://learnopengl.com">learnopengl.com</a> tutorials.</p>
 <h2 id="theory">Theory</h2>
 <p>The main trick of this technique, comes from a <a href="https://www.cs.williams.edu/~morgan/">Morgan McGuire</a> <a href="https://twitter.com/CasualEffects/status/705750628849590273">tweet and a follow up discussion</a>. Supposedly 
 following line will produce a fullscreen triangle, without us uploading any
@@ -108,7 +110,7 @@ this, it is not hard to calculate generated positions by hand:</p>
 </tbody>
 </table>
 <p>Thus our vertex locations are (0, 0, 0), (0, 1, 0), (1, 0, 0). Why do we need
-the rest of opertations though(multiplications and substraction)? There are two
+the rest of operations though(multiplications and subtraction)? There are two
 reasons: First, we want our triangle to cover entire screen, not just half. Second,
 we want to write positions in Normalized Device Coordinates, which range from (-1,-1) to (1,1). 
 To illustrate what the transformation do:</p>
@@ -118,7 +120,7 @@ We need to enlarge it and translate it to (-1, -1). The factor of 4 comes
 from the triangle similarity - it is going to be the smallest triangle
 that covers entire screen. I&rsquo;ve added the red numbers in (b) to better illustrate this.</p>
 <h2 id="code">Code</h2>
-<p>Let&rsquo;s start with gpu side of things. We have most of the pieces of a vertex shader.
+<p>Let&rsquo;s start with GPU side of things. We have most of the pieces of a vertex shader.
 For this purpose I have modified the vertex shader slightly, to also automatically
 generate uv coordinates. Note that these range from (0,0) to (1,1). We can get 
 this by remapping the range of <strong>gl_Position.xy</strong> which we know will be from
@@ -213,13 +215,13 @@ void mygl_GradientBackground( float top_r, float top_g, float top_b, float top_a
   glEnable(GL_DEPTH_TEST);
 }
 </code></pre><p>Most of the code above is standard OpenGL boilerplate/setup code. Only &ldquo;trick&rdquo; 
-is making the Vertex Array Object(vao) and shader program handle static, so they
-persist through diffrent calls. This also causes the shader compilation to be
+is making the Vertex Array Object (vao) and shader program handle static, so they
+persist through different calls. This also causes the shader compilation to be
 executed only once.</p>
 <h1 id="results">Results</h1>
 <div style="text-align:center;"> <img style="width:100%;" src="gradients_results.png"> </div>
 <p>Now we can create &ldquo;pretty&rdquo; gradient backgrounds! I&rsquo;ve posted my implementation project <a href="https://gist.github.com/mhalber/0a9b8a78182eb62659fc18d23fe5e94e">here</a>.
-Even though we have only created shaders for vertical linear graident, modifying
+Even though we have only created shaders for vertical linear gradient, modifying
 the code to support other form of gradients should not be very hard. Also
 note that once you have the full-screen triangle, the world is your oyster, and
 you are all set to do the <a href="http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf">fragment-shader</a> <a href="https://www.shadertoy.com">magic</a>!</p>
@@ -229,6 +231,13 @@ you are all set to do the <a href="http://www.iquilezles.org/www/material/nvscen
 <table class="post_nav_bar">
   <tr class="post_nav_row">
     <td class="post_nav_prev"> 
+       
+        <a href=https://mhalber.github.io/blog/d3d11_notes/d3d11_notes/>
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-angle-left fa-stack-1x fa-inverse"></i>
+        </span>
+      </a> 
        
     </td>
     <td class="post_nav_home"> 
